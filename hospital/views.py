@@ -9,6 +9,7 @@ from datetime import datetime,timedelta,date
 from django.conf import settings
 from django.db.models import Q
 
+
 # Create your views here.
 def home_view(request):
     if request.user.is_authenticated:
@@ -806,6 +807,41 @@ def patient_discharge_view(request):
             'patientId':request.user.id,
         }
     return render(request,'hospital/patient_discharge.html',context=patientDict)
+
+
+@login_required(login_url='patientlogin')
+@user_passes_test(is_patient)
+def patient_records_view(request):
+    patient=models.Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
+    dischargeDetails=models.PatientDischargeDetails.objects.all().filter(patientId=patient.id).order_by('-id')[:1]
+    patientDict=None
+    if dischargeDetails:
+        patientDict ={
+        'is_discharged':True,
+        'patient':patient,
+        'patientId':patient.id,
+        'patientName':patient.get_name,
+        'assignedDoctorName':dischargeDetails[0].assignedDoctorName,
+        'address':patient.address,
+        'mobile':patient.mobile,
+        'symptoms':patient.symptoms,
+        'admitDate':patient.admitDate,
+        'releaseDate':dischargeDetails[0].releaseDate,
+        'daySpent':dischargeDetails[0].daySpent,
+        'medicineCost':dischargeDetails[0].medicineCost,
+        'roomCharge':dischargeDetails[0].roomCharge,
+        'doctorFee':dischargeDetails[0].doctorFee,
+        'OtherCharge':dischargeDetails[0].OtherCharge,
+        'total':dischargeDetails[0].total,
+        }
+        print(patientDict)
+    else:
+        patientDict={
+            'is_discharged':False,
+            'patient':patient,
+            'patientId':request.user.id,
+        }
+    return render(request,'hospital/patient_records.html',context=patientDict)
 
 
 #------------------------ PATIENT RELATED VIEWS END ------------------------------

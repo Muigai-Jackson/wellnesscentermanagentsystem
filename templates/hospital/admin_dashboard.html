@@ -3,7 +3,7 @@
 {% block content %}
 {%include 'hospital/admin_dashboard_cards.html'%}
 <br><br><br><br>
-<div class="container">
+<div style="margin-left:2%;">
   <div class="row">
     <div class="panel panel-primary col-md-5" style="margin-left:2%;">
       <div class="panel-heading" style="text-align:center;">
@@ -16,7 +16,7 @@
             <th>Department</th>
             <th>Mobile</th>
             <th>Status</th>
-
+            <th>Records</th>
           </tr>
         </thead>
         {% for d in doctors %}
@@ -35,7 +35,7 @@
       </table>
     </div>
 
-    <div class="panel panel-primary col-md-5" style="margin-left:5%;">
+    <div class="panel panel-primary col-md-6" style="margin-left:2%;">
       <div class="panel-heading" style="text-align:center;">
         <h6 class="panel-title">Recent Patient</h6>
       </div>
@@ -47,7 +47,6 @@
             <th>Mobile</th>
             <th>Address</th>
             <th>Status</th>
-
           </tr>
         </thead>
         {% for p in patients %}

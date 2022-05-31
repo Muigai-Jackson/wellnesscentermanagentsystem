@@ -8,6 +8,7 @@ departments=[('Dental','Dental'),
 ('Emergency Medicine Specialists','Emergency Medicine Specialists'),
 ('Allergists/Immunologists','Allergists/Immunologists'),
 ('Normal Doctor','Normal Doctor'),
+('Pediatricians','Pediatricians')
 #('Colon and Rectal Surgeons','Colon and Rectal Surgeons')
 ]
 
